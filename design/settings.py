@@ -53,7 +53,7 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'design.urls'
 
-AUTH_USER_MODEL = 'catalog.AdvUser'
+
 
 TEMPLATES = [
     {
@@ -71,8 +71,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'design.wsgi.application'
-
-
+AUTH_USER_MODEL = 'catalog.AdvUser'
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 

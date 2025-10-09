@@ -9,7 +9,7 @@ class ChangeUserInfoForm(forms.ModelForm):
 
    class Meta:
        model = AdvUser
-       fields = ('username', 'email', 'fio')
+       fields = ('username', 'email', 'first_name', 'patronymic', 'last_name')
 
 class RegisterUserForm(forms.ModelForm):
     email = forms.EmailField(required=True, label='Адрес электронной почты', validators=[
@@ -20,16 +20,28 @@ class RegisterUserForm(forms.ModelForm):
     ])
     password1 = forms.CharField(
         label='Пароль',
-        widget=forms.PasswordInput,help_text=password_validation.password_validators_help_text_html()
+        widget=forms.PasswordInput,
     )
     password2 = forms.CharField(
         label='Пароль (повторно)',
         widget=forms.PasswordInput,help_text='Повторите тот же самый пароль еще раз'
     )
-    fio = forms.CharField(label='ФИО', max_length=100, validators=[
+    first_name = forms.CharField(label='Имя', max_length=100, validators=[
         RegexValidator(
             regex=r'^[а-яА-ЯёЁ\s-]+$',
-            message='ФИО должно состоять только из кириллических букв, пробелов и дефисов.'
+            message='Имя должно состоять только из кириллических букв, пробелов и дефисов.'
+        )
+    ])
+    patronymic = forms.CharField(label='Отчество', max_length=100, validators=[
+        RegexValidator(
+            regex=r'^[а-яА-ЯёЁ-]+$',
+            message='Отчество должно состоять только из кириллических букв и дефисов.'
+        )
+    ])
+    last_name = forms.CharField(label='Фамилия', max_length=100, validators=[
+        RegexValidator(
+            regex=r'^[а-яА-ЯёЁ-]+$',
+            message='Фамилия должно состоять только из кириллических букв и дефисов.'
         )
     ])
     username = forms.CharField(label='Логин', max_length=30, validators=[
@@ -68,4 +80,4 @@ class RegisterUserForm(forms.ModelForm):
 
     class Meta:
         model = AdvUser
-        fields = ('username', 'fio', 'email', 'password1', 'password2', 'consent')
+        fields = ('username', 'first_name', 'patronymic', 'last_name', 'email', 'password1', 'password2', 'consent')
